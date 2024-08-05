@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>js8-task</title>
+        <style>
+            table{
+                border-collapse: collapse;
+            }
+            tr, td{
+                padding: 20px;
+                border: 1px solid #000;
+                text-align: center;
+                font-size: 24px;
+                width: 60px;
+                height: 60px;
+            }
+            h1{
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <table id="cvd"></table>
+        <h1 id="ntc"></h1>
+
+        <script>
+            const cvd = document.querySelector("#cvd")
+            const ntc = document.querySelector("#ntc")
+            let kod = ''
+            let simvol = ""
+            for (let i = 1; i <= 3; i++) {
+                kod += "<tr>"
+                    for (let j = 1; j <= 3; j++) {
+                        kod += `<td onclick="go(this)"></td>`
+                    }
+                kod += "</tr>"
+            }
+
+            function go(cell){
+              if (cell.innerHTML == ''){
+                cell.innerHTML = simvol
+               simvol = simvol == 'X' ? 'O' : "X"
+              }
+            }
+
+
+
+            cvd.innerHTML = kod
+        </script>
+    </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Oyun</title>
+        <style> 
+            table {
+                margin: auto;
+                border-collapse: collapse;
+            }
+            td {
+                text-align: center;
+                width: 70px;
+                height: 70px;
+                padding: 10px;
+                border: 1px solid #000;
+                font-size: 2em;
+                font-weight: bold;
+            }
+            #saat {
+                text-align: center;
+            }
+            .sec{
+                margin: 20px;
+                input, select, button{
+                    margin: 0 5px;
+                    height: 30px;
+                    width: 180px;
+                    font-size: 1.5em;
+                    text-align: center;
+                }
+            }
+        </style>
+    </head>
+    <body>
+      <div class="sec">
+        <input type="number" id="inp" placeholder="Saniye daxil edin...." />
+        <select id="select">
+            <option value="4">Asan (4x4)</option>
+            <option value="5">Orta (5x5)</option>
+            <option value="6">Çətin (6x6)</option>    
+        </select>
+        <button onclick="startGame()">Start Game</button>
+      </div>
+        <h1 id="saat"></h1>
+        <table id="cdv"></table>
+
+        <script>
+            const cdv = document.querySelector("#cdv");
+            const saat = document.querySelector("#saat");
+            const inp = document.querySelector("#inp");
+            const select = document.querySelector("#select");
+            let kod = "";
+            let order = 1;
+            let saniye 
+            let timer
+
+            function startGame(){
+                clearInterval(timer);
+                kod = ''
+                order = 1
+                saniye = parseInt(inp.value) || 30
+                const size = parseInt(select.value)
+                let arr = [];
+                for (let i = 1; i <=  size * size; i++) {
+                    arr.push(i);
+                }
+                function rand(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            for (let i = 0; i < size; i++) {
+                kod += '<tr>';
+                for (let j = 0; j < size; j++) {
+                    let index = rand(0, arr.length - 1)
+                    kod += `<td onclick="go(this)">${arr[index]}</td>`;
+                    arr.splice(index, 1);
+                }
+                kod += '</tr>';
+            }
+                cdv.innerHTML = kod
+                timer = setInterval(count, 1000);
+            }
+        
+            function count() {
+                if (saniye) {
+                    saat.innerHTML = saniye--;
+                } else {
+                    GameOver(false);
+                }
+            }
+
+
+            function GameOver(res) {
+                clearInterval(timer);
+            const tds = document.querySelectorAll("#cdv td");
+            for (const td of tds) {
+                td.style.background = res ? "green" : "red";
+                td.style.color = res ? "white" : "black";
+                td.style.borderColor = res ? "white" : "black";
+                td.innerHTML = res ? "Qazandın !!!" : "Oyun bitdi!!!";
+            }
+                order = 0;
+            }
+
+
+            function go(td) {
+                if (td.innerHTML == order) {
+                    td.style.background = '#ddd';
+                    td.style.color = '#aaa';
+                    order++;
+                    if (order > parseInt(select.value) * parseInt(select.value) ) GameOver(true);
+                }
+            }
+
+            cdv.innerHTML = kod;
+        </script>
+    </body>
+</html>

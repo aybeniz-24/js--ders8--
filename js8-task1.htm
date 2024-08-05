@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>js8-task1</title>
+        <style>
+            p{font-size: 2em;}
+        </style>
+    </head>
+    <body>
+        <p id="metn"></p>
+        
+        <script>
+            const metn = document.querySelector("#metn");
+            let arr = "Bir bərbər bir bərbərə gəl bərabər bir bərbər dükanı açaq demiş";
+            let ber = 'bər';
+            let index = [];
+
+            for (let i = 0; i < arr.length; i++) {
+              if(arr.slice(i, i + ber.length) === ber){
+                index.push(i)
+              }
+            }
+            console.log(index);
+            metn.innerHTML = arr
+        </script>
+    </body>
+</html>

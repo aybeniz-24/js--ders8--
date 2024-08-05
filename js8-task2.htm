@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>js8-task2</title>
+    <style>
+        h1 { text-align: center; }
+    </style>
+</head>
+<body>
+    <h1 id="name">Aybeniz</h1>
+    <script>
+        const name = document.querySelector("#name");
+        let text = name.textContent
+        let arr = text.split("");
+        let index = 0;
+
+        function go() {
+            if (index < arr.length) {
+               name.textContent = arr.slice(0, index + 1).join("");
+                index++;
+                setTimeout(go, 1000); 
+            }
+        }
+        go()
+    </script>
+</body>
+</html>
